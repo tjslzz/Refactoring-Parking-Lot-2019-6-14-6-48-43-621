@@ -13,7 +13,7 @@ public class ParkingStoryThreeTest {
     private List<Car> cars = new ArrayList<>();
     private BasicParkingBoy basicParkingBoy;
 
-    
+
     @BeforeEach
     public void setUp(){
         parkingLots.add(new ParkingLot(10));
