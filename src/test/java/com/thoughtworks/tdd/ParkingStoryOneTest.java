@@ -31,7 +31,6 @@ public class ParkingStoryOneTest {
 
     @Test
     public void shout_return_car_when_call_fetch_given_correctTicket_with_manyCars(){
-        BasicParkingBoy basicParkingBoy = new BasicParkingBoy(parkingLots);
         basicParkingBoy.park(cars.get(0));
         Ticket ticket2 = basicParkingBoy.park(cars.get(1));
         Car fetch = basicParkingBoy.fetch(ticket2);
@@ -41,7 +40,6 @@ public class ParkingStoryOneTest {
 
     @Test
     public void shout_return_null_when_call_fetch_given_wrongTicket_or_NoTicket(){
-        BasicParkingBoy basicParkingBoy = new BasicParkingBoy(parkingLots);
         basicParkingBoy.park(cars.get(0));
         basicParkingBoy.park(cars.get(1));
         Car fetch1 = basicParkingBoy.fetch(new Ticket());
@@ -53,7 +51,6 @@ public class ParkingStoryOneTest {
 
     @Test
     public void shout_return_null_when_call_fetch_given_usedTicket(){
-        BasicParkingBoy basicParkingBoy = new BasicParkingBoy(parkingLots);
         Ticket ticket1 = basicParkingBoy.park(cars.get(0));
         basicParkingBoy.park(cars.get(1));
         basicParkingBoy.fetch(ticket1);
@@ -64,7 +61,6 @@ public class ParkingStoryOneTest {
 
     @Test
     public void shout_return_null_when_call_fetch_given_hasTicket_whit_limited_Lot(){
-        BasicParkingBoy basicParkingBoy = new BasicParkingBoy(parkingLots);
         for (int i = 0; i < 10; i++) basicParkingBoy.park(new Car());
         Ticket ticket = basicParkingBoy.park(new Car());
 
@@ -73,7 +69,6 @@ public class ParkingStoryOneTest {
 
     @Test
     public void shout_return_null_when_call_fetch_given_nullCar_or_parkedCar(){
-        BasicParkingBoy basicParkingBoy = new BasicParkingBoy(parkingLots);
         basicParkingBoy.park(cars.get(0));
         Ticket ticket1 = basicParkingBoy.park(cars.get(0));
         Ticket ticket2 = basicParkingBoy.park(null);
