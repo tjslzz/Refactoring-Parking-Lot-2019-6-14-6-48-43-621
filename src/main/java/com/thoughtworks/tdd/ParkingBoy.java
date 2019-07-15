@@ -17,33 +17,19 @@ public abstract class ParkingBoy {
     public Car fetch(Ticket ticket){
         try{
             semaphore.acquire();
-            if(ticket == null){ this.errorMessage = "Please provide your parking ticket.";return null; }
-            else {
-                ParkingLot parkingLot = parkingLots.stream().filter(p ->p.getParkingLot().containsKey(ticket)).collect(Collectors.toList()).get(0);
-                Car car = parkingLot.outOfLibrary(ticket);
-                if(car == null)this.errorMessage = "Unrecognized parking ticket.";
-                Thread.sleep(SLEEP_TIME);
-                return car;
-            }
+            return fetchCar(ticket);
         }
         catch (Exception e){ this.errorMessage = "Unrecognized parking ticket.";return null; }
         finally { semaphore.release(); }
     }
 
     public Ticket lotPark(List<ParkingLot> parkingLots,Car car){
-        try{
-            ParkingLot parkingLot = parkingLots.get(0);
-            Ticket ticket = parkingLot.storage(car);
-            return ticket;
-        }
+        try{ return parkCar(parkingLots.get(0),car); }
         catch (Exception e){ this.errorMessage = "Not enough position.";return null; }
     }
 
     public Ticket lotPark(ParkingLot parkingLot,Car car){
-        try{
-            Ticket ticket = parkingLot.storage(car);
-            return ticket;
-        }
+        try{ return parkCar(parkingLot,car); }
         catch (Exception e){ this.errorMessage = "Not enough position.";return null; }
     }
 
@@ -54,4 +40,21 @@ public abstract class ParkingBoy {
 
     public Semaphore getSemaphore() { return semaphore; }
 
+    private Car fetchCar(Ticket ticket) throws InterruptedException {
+        if(ticket == null){ this.errorMessage = "Please provide your parking ticket.";return null; }
+        else { return fetchCarForValidTicket(ticket); }
+    }
+
+    private Ticket parkCar(ParkingLot parkingLot,Car car){
+        Ticket ticket = parkingLot.storage(car);
+        return ticket;
+    }
+
+    private Car fetchCarForValidTicket(Ticket ticket) throws InterruptedException {
+        ParkingLot parkingLot = parkingLots.stream().filter(p ->p.getParkingLot().containsKey(ticket)).collect(Collectors.toList()).get(0);
+        Car car = parkingLot.outOfLibrary(ticket);
+        if(car == null)this.errorMessage = "Unrecognized parking ticket.";
+        Thread.sleep(SLEEP_TIME);
+        return car;
+    }
 }
