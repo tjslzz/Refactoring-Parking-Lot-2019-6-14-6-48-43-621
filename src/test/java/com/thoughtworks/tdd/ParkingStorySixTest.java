@@ -1,6 +1,7 @@
 package com.thoughtworks.tdd;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,15 +11,25 @@ import java.util.concurrent.FutureTask;
 
 public class ParkingStorySixTest {
 
+    private List<ParkingLot> parkingLots = new ArrayList<>();
+    private List<Car> cars = new ArrayList<>();
+    private Manager manager;
+    private List<ParkingBoy> parkingBoys = new ArrayList<>();
+
+    @BeforeEach
+    public void setUp(){
+        parkingLots.add(new ParkingLot(20));
+        parkingLots.add(new ParkingLot(10));
+        cars.add(new Car());
+        cars.add(new Car());
+        parkingBoys.add(new BasicParkingBoy(parkingLots));
+        parkingBoys.add(new SmartParkingBoy(parkingLots));
+        parkingBoys.add(new SuperSmartParkingBoy(parkingLots));
+        manager = new Manager(parkingLots,parkingBoys);
+    }
+
     @Test
     public void shout_return_car_when_call_fetch_given_hasTicket_on_manager_choose_parkingBoy(){
-        List<ParkingLot> parkingLots = new ArrayList<>();
-        parkingLots.add(new ParkingLot(10));
-        List<ParkingBoy> ParkingBoys = new ArrayList<>();
-        ParkingBoys.add(new BasicParkingBoy(parkingLots));
-        ParkingBoys.add(new SmartParkingBoy(parkingLots));
-        ParkingBoys.add(new SuperSmartParkingBoy(parkingLots));
-        Manager manager = new Manager(parkingLots, ParkingBoys);
         Car car = new Car();
         Ticket ticket = manager.chooseParkingBoy(0).park(car);
         Car fetch = manager.chooseParkingBoy(0).fetch(ticket);
@@ -28,9 +39,6 @@ public class ParkingStorySixTest {
 
     @Test
     public void shout_return_car_when_call_fetch_given_hasTicket_on_manager(){
-        List<ParkingLot> parkingLots = new ArrayList<>();
-        parkingLots.add(new ParkingLot(10));
-        Manager manager = new Manager(parkingLots,new ArrayList<>());
         Car car = new Car();
         Ticket ticket = manager.park(car);
         Car fetch = manager.fetch(ticket);
