@@ -21,7 +21,7 @@ public abstract class ParkingBoy {
             else {
                 ParkingLot parkingLot = parkingLots.stream().filter(p ->p.getParkingLot().containsKey(ticket)).collect(Collectors.toList()).get(0);
                 Car car = parkingLot.outOfLibrary(ticket);
-                this.errorMessage = parkingLot.getErrorMessage();
+                if(car == null)this.errorMessage = "Unrecognized parking ticket.";
                 Thread.sleep(SLEEP_TIME);
                 return car;
             }
@@ -34,7 +34,6 @@ public abstract class ParkingBoy {
         try{
             ParkingLot parkingLot = parkingLots.get(0);
             Ticket ticket = parkingLot.storage(car);
-            this.errorMessage = parkingLot.getErrorMessage();
             return ticket;
         }
         catch (Exception e){ this.errorMessage = "Not enough position.";return null; }
@@ -43,7 +42,6 @@ public abstract class ParkingBoy {
     public Ticket lotPark(ParkingLot parkingLot,Car car){
         try{
             Ticket ticket = parkingLot.storage(car);
-            this.errorMessage = parkingLot.getErrorMessage();
             return ticket;
         }
         catch (Exception e){ this.errorMessage = "Not enough position.";return null; }

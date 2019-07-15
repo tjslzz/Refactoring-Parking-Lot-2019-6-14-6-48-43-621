@@ -6,7 +6,6 @@ import java.util.Map;
 public class ParkingLot {
     private Map<Ticket,Car> parkingLot = new HashMap<>();
     private Integer capacity;
-    private String errorMessage;
 
     public ParkingLot(Integer capacity) { this.capacity = capacity;}
 
@@ -19,15 +18,7 @@ public class ParkingLot {
         }
     }
 
-    public Car outOfLibrary(Ticket ticket){
-        Car car = parkingLot.remove(ticket);
-        if(car == null)errorMessage = "Unrecognized parking ticket.";
-        return car;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
+    public Car outOfLibrary(Ticket ticket){ return parkingLot.remove(ticket); }
 
     public Integer getCapacity() { return capacity; }
 
