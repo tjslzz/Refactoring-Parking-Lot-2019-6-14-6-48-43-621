@@ -8,5 +8,5 @@ public class BasicParkingBoy extends ParkingBoy{
     public BasicParkingBoy(List<ParkingLot> parkingLots) { super(parkingLots); }
 
     @Override
-    public Ticket park(Car car){ return lotPark(parkingLots.stream().filter(p -> p.getEmpty() > 0).collect(Collectors.toList()),car); }
+    public Ticket park(Car car){ return lotPark(parkingLots.stream().filter(p -> p.getEmpty() > 0).findFirst().orElse(null),car); }
 }

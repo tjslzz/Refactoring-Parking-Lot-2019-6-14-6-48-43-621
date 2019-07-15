@@ -23,11 +23,6 @@ public abstract class ParkingBoy {
         finally { semaphore.release(); }
     }
 
-    public Ticket lotPark(List<ParkingLot> parkingLots,Car car){
-        try{ return parkCar(parkingLots.get(0),car); }
-        catch (Exception e){ this.errorMessage = "Not enough position.";return null; }
-    }
-
     public Ticket lotPark(ParkingLot parkingLot,Car car){
         try{ return parkCar(parkingLot,car); }
         catch (Exception e){ this.errorMessage = "Not enough position.";return null; }
