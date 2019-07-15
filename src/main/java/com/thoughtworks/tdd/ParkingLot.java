@@ -10,7 +10,7 @@ public class ParkingLot {
 
     public ParkingLot(Integer capacity) { this.capacity = capacity;}
 
-    public Ticket park(Car car){
+    public Ticket storage(Car car){
         if(parkingLot.containsValue(car) || car == null) return null;
         else{
             Ticket ticket = new Ticket();
@@ -19,7 +19,7 @@ public class ParkingLot {
         }
     }
 
-    public Car fetch(Ticket ticket){
+    public Car outOfLibrary(Ticket ticket){
         Car car = parkingLot.remove(ticket);
         if(car == null)errorMessage = "Unrecognized parking ticket.";
         return car;

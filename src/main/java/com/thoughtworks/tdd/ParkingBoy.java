@@ -20,7 +20,7 @@ public abstract class ParkingBoy {
             if(ticket == null){ this.errorMessage = "Please provide your parking ticket.";return null; }
             else {
                 ParkingLot parkingLot = parkingLots.stream().filter(p ->p.getParkingLot().containsKey(ticket)).collect(Collectors.toList()).get(0);
-                Car car = parkingLot.fetch(ticket);
+                Car car = parkingLot.outOfLibrary(ticket);
                 this.errorMessage = parkingLot.getErrorMessage();
                 Thread.sleep(SLEEP_TIME);
                 return car;
@@ -33,7 +33,7 @@ public abstract class ParkingBoy {
     public Ticket lotPark(List<ParkingLot> parkingLots,Car car){
         try{
             ParkingLot parkingLot = parkingLots.get(0);
-            Ticket ticket = parkingLot.park(car);
+            Ticket ticket = parkingLot.storage(car);
             this.errorMessage = parkingLot.getErrorMessage();
             return ticket;
         }
@@ -42,7 +42,7 @@ public abstract class ParkingBoy {
 
     public Ticket lotPark(ParkingLot parkingLot,Car car){
         try{
-            Ticket ticket = parkingLot.park(car);
+            Ticket ticket = parkingLot.storage(car);
             this.errorMessage = parkingLot.getErrorMessage();
             return ticket;
         }
