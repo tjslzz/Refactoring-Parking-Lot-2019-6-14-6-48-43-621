@@ -12,8 +12,7 @@ public class ManagerThread implements Callable<String> {
     }
 
     @Override
-    public String call(){
-        if(parkingBoy.getSemaphore().availablePermits() == 0) {return"sorry, Boy busy";}
-        else parkingBoy.fetch(ticket);return "ok";
-    }
+    public String call(){ return parkingBoy.getSemaphore().availablePermits() == 0?"sorry, Boy busy":"ok"; }
+
+    public Ticket getTicket() { return ticket; }
 }

@@ -8,6 +8,7 @@ public abstract class ParkingBoy {
     protected List<ParkingLot> parkingLots;
     protected String errorMessage;
     private final Semaphore semaphore;
+    private static final Long SLEEP_TIME = Long.valueOf(1000);
 
     public ParkingBoy(List<ParkingLot> parkingLots) { this.parkingLots = parkingLots;semaphore = new Semaphore(1);}
 
@@ -21,7 +22,7 @@ public abstract class ParkingBoy {
                 ParkingLot parkingLot = parkingLots.stream().filter(p ->p.getParkingLot().containsKey(ticket)).collect(Collectors.toList()).get(0);
                 Car car = parkingLot.fetch(ticket);
                 this.errorMessage = parkingLot.getErrorMessage();
-                Thread.sleep(1000);
+                Thread.sleep(SLEEP_TIME);
                 return car;
             }
         }
